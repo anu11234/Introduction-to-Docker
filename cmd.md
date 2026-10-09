@@ -50,7 +50,7 @@ docker build -t node-app:0.2 .
 
 ```bash
 # Set explicit variables for the lab environment
-export LOCATION="us-east1"
+export LOCATION=""
 export PROJECT_ID=$(gcloud config get-value project)
 
 # 1. Configure Docker authentication
