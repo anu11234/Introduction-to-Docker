@@ -49,19 +49,23 @@ docker build -t node-app:0.2 .
 ```
 
 ```bash
-# Configure Docker authentication for Artifact Registry
+# Set explicit variables for the lab environment
+export LOCATION="us-east1"
+export PROJECT_ID=$(gcloud config get-value project)
+
+# 1. Configure Docker authentication
 gcloud auth configure-docker ${LOCATION}-docker.pkg.dev --quiet
 
-# Create the Artifact Registry repository
+# 2. Create the Artifact Registry repository
 gcloud artifacts repositories create my-repository \
     --repository-format=docker \
     --location=${LOCATION} \
     --description="Docker repository" \
     --quiet || true
 
-# Tag the v0.2 image for Artifact Registry
+# 3. Tag the image for Artifact Registry
 docker tag node-app:0.2 ${LOCATION}-docker.pkg.dev/${PROJECT_ID}/my-repository/node-app:0.2
 
-# Push the container image to Artifact Registry
+# 4. Push the image to Artifact Registry
 docker push ${LOCATION}-docker.pkg.dev/${PROJECT_ID}/my-repository/node-app:0.2
 ```
